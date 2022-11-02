@@ -1,7 +1,12 @@
 # Spine-Leaf Data Centre Topology using Cumulus routers
 
-This lab consists of five [Cumulus](https://www.nvidia.com/en-us/networking/ethernet-switching/cumulus-linux/) [VX routers](https://docs.nvidia.com/networking-ethernet-software/cumulus-vx/) connected in a spine-leaf topology (two spine and three leaf). Each leaf router is connected to two hosts.
-The lab demonstrates creating a DC network using free Cumulus Linux routers (Cumulus Linux is a fork of FRRouting). The lab also includes a demonstration of [SuzieQ](https://www.stardustsystems.net/suzieq/), an open source software for network observability.  
+This lab consists of five [Cumulus](https://www.nvidia.com/en-us/networking/ethernet-switching/cumulus-linux/) [VX routers](https://docs.nvidia.com/networking-ethernet-software/cumulus-vx/) connected in a spine-leaf topology (two spine and three leaf). Each leaf router is connected to one Linux host.
+
+The lab also includes a demonstration of [SuzieQ](https://www.stardustsystems.net/suzieq/), an open source software for network observability.  
+
+Cumulus Linux is a fork of FRRouting so it uses similar set of instructions, but it adds more functionalities, including unnumbered interfaces, which are useful in configuring BGP or OSFP in data centres.
+
+All routers in this lab run both BGP and OSPF using numbered interfaces. I will updated the lab to include unnumbered configuration as well.
 
 <!--[Lab Topology](img/bgp_frr.png)-->
 
@@ -14,10 +19,10 @@ This lab is inspired by the [Cumulus Test Drive lab](https://clabs.netdevops.me/
 
 To use this lab, you need to install [containerlab](https://containerlab.srlinux.dev/) (I used the [script method](https://containerlab.srlinux.dev/install/#install-script) Ubuntu 20.04 VM). You also need to have basic familiarity with [Docker](https://www.docker.com/).
 
-This lab uses the following Docker images:
+This lab uses the following Docker images form [networkop](https://hub.docker.com/u/networkop):
 
-
-
+- networkop/cx:4.3.0
+- networkop/host:ifreload
 
 ## Starting and ending the lab
 
@@ -53,6 +58,18 @@ sudo clab destroy --topo cvx-dcn.clab.yml --cleanup
    $ docker exec clab-cdc-leaf01 vtysh -c "show ip route bgp"
    ```
 
+   or using Cumulus commands:
+
+   ```
+   docker exec clab-cdc-spine01 net show bgp
+   ```
+
+3. Show all routes
+
+   ```
+   $ docker exec clab-cdc-spine01 net show route
+   ```
+
 3. Ping from any one host to another to verify connectivity.
 
     ```
@@ -60,7 +77,7 @@ sudo clab destroy --topo cvx-dcn.clab.yml --cleanup
     ```
 
 
-# Additional Tips
+### Packet sniffing with Wireshark/Tshark
 
 Bind one container interface to another's so you can run tshark:
 
@@ -68,19 +85,22 @@ Bind one container interface to another's so you can run tshark:
 $ docker run -it --rm --net container:clab-cdc-spine01 nicolaka/netshoot tshark -i swp1
 ```
 
-# Using SuzieQ
+## Using SuzieQ
 
-SuzieQ is an agentless open-source application that collects, normalizes, and stores timestamped network information from multiple vendors.
-A network engineer can then use the information to verify the health of the network or identify issues quickly.
+SuzieQ is an agentless open-source application that collects, normalizes, and stores timestamped network information from multiple vendors. A network engineer can then use the information to verify the health of the network or identify issues quickly.
 
 SuzieQ is a Python module/application that consists of three parts, a poller, a CLI interface, and a GUI interface. To learn more about SuzieQ,
 you can refer to these links:
 
+- [Introduction to SuzieQ](https://www.packetcoders.io/introduction-to-suzieq/)
+- [SuzieQ Docs](https://suzieq.readthedocs.io/en/latest/)
+- [Github repo](https://github.com/netenglabs/suzieq)
+- [Whoop Dee Doo for my SuzieQ!](https://gratuitous-arp.net/fabric-like-visibility-to-your-network-with-suzieq/) by Claudia de Luna
+-
 
 SuzieQ is also packaged as a Docker container, which we will use in this lab to get a quick look into the capabilities.
 
-To use SuzieQ, make sure that the clab is running as above, then use the following commands to start SuzieQ.
-The Docker command attaches the container to the clab network and exposes port 8501 for the GUI.
+To use SuzieQ, make sure that the clab is running as above, then use the following commands to start SuzieQ. The command attaches the container to the clab network and exposes the 8501 port for the GUI.
 
 ```
 SQPATH=/path/to/suzieq
@@ -91,6 +111,7 @@ docker run --rm -it -p 8501:8501 \
   --name sq-poller --network=clab \
   netenglabs/suzieq:latest
 ```
+
 
 Start the Poller to collect information about the devices in the network:
 
