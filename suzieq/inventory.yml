@@ -1,0 +1,49 @@
+sources:
+- name: src-routers
+  type: native
+  hosts:
+  - url: ssh://root@172.20.20.11
+  - url: ssh://root@172.20.20.12
+  - url: ssh://root@172.20.20.21
+  - url: ssh://root@172.20.20.22
+  - url: ssh://root@172.20.20.23
+
+- name: src-servers
+  type: native
+  hosts:
+  - url: ssh://root@172.20.20.31
+  - url: ssh://root@172.20.20.32
+  - url: ssh://root@172.20.20.33
+
+devices:
+- name: dc-routers
+  transport: ssh
+#  devtype: cumulus
+  ignore-known-hosts: True
+  port: 22
+
+- name: dc-servers
+  transport: ssh
+#  devtype: cumulus
+  ignore-known-hosts: True
+  port: 22
+
+auths:
+- name: user-01
+  username: root
+  password: plain:root
+
+- name: user-02
+  username: root
+  password: plain:root
+
+namespaces:
+- name: routers
+  source: src-routers
+  device: dc-routers
+  auth: user-01
+
+- name: servers
+  source: src-servers
+  device: dc-servers
+  auth: user-02
