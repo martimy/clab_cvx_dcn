@@ -1,11 +1,11 @@
 # Spine-Leaf Data Centre Topology using Cumulus routers
 
 This lab consists of five [Cumulus](https://www.nvidia.com/en-us/networking/ethernet-switching/cumulus-linux/) [VX routers](https://docs.nvidia.com/networking-ethernet-software/cumulus-vx/) connected in a spine-leaf topology (two spine and three leaf). Each leaf router is connected to two hosts.
-The lab demonstrates creating a DC network using free Cumulus Linux routers (Cumulux Linux is a fork of FRRouting). The lab also includes a demonstration of [SuzieQ](https://www.stardustsystems.net/suzieq/), an open source software for network observibility.  
+The lab demonstrates creating a DC network using free Cumulus Linux routers (Cumulus Linux is a fork of FRRouting). The lab also includes a demonstration of [SuzieQ](https://www.stardustsystems.net/suzieq/), an open source software for network observability.  
 
 <!--[Lab Topology](img/bgp_frr.png)-->
 
-## Acknowlegement
+## Acknowledgement
 
 This lab is inspired by the [Cumulus Test Drive lab](https://clabs.netdevops.me/rs/cvx03/) created by Michael Kashin.
 
@@ -41,7 +41,7 @@ sudo clab destroy --topo cvx-dcn.clab.yml --cleanup
    $ docker exec clab-cdc-spine01 vtysh -c "show bgp summary"
    ```
 
-   or using Cumulus commmands:
+   or using Cumulus commands:
 
    ```
    $ docker exec clab-cdc-spine01 net show bgp summary
@@ -70,17 +70,17 @@ $ docker run -it --rm --net container:clab-cdc-spine01 nicolaka/netshoot tshark 
 
 # Using SuzieQ
 
-SuzieQ is an agentless open-source application that collects, normalizes, and stores timestamped network information from multiple vendors. 
-A network engineer can then use the information to verify the health of the network or identify issues quickly. 
+SuzieQ is an agentless open-source application that collects, normalizes, and stores timestamped network information from multiple vendors.
+A network engineer can then use the information to verify the health of the network or identify issues quickly.
 
 SuzieQ is a Python module/application that consists of three parts, a poller, a CLI interface, and a GUI interface. To learn more about SuzieQ,
 you can refer to these links:
 
 
-SuzieQ is also packged as a Docker container, which we will use in this lab to get a quick look into the capabilities.
- 
-To use SuzieQ, make sure that the clab is running as above, then use the following commands to start SuzieQ. 
-The Docker command attaches the container to the clab network and exposes port 8501 for the GUI. 
+SuzieQ is also packaged as a Docker container, which we will use in this lab to get a quick look into the capabilities.
+
+To use SuzieQ, make sure that the clab is running as above, then use the following commands to start SuzieQ.
+The Docker command attaches the container to the clab network and exposes port 8501 for the GUI.
 
 ```
 SQPATH=/path/to/suzieq
@@ -106,9 +106,9 @@ suzieq@b7c0b9263b48:~$ suzieq-gui
 
 Direct you browser to "localhost:8501". The [Streamlit](https://streamlit.io/) app gives access to various information that the Poller collected earlier.
 
-![Status](images\suzieq_status.png)
+![Status](img/suzieq_status.png)
 
-![Status](images\suzieq_path.png)
+![Status](img/suzieq_path.png)
 
 More detailed information is available via the CLI. Stop the GUI (CTRL-C) and start the CLI:
 
@@ -128,6 +128,3 @@ suzieq> exit
 ```
 
 Once you finished exploring, you can exit the SuzieQ container. You can also end the clab as above.
-
-
-
