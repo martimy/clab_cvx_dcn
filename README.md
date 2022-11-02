@@ -108,7 +108,7 @@ Direct you browser to "localhost:8501". The [Streamlit](https://streamlit.io/) a
 
 ![Status](img/suzieq_status.png)
 
-![Status](img/suzieq_path.png)
+![Path](img/suzieq_path.png)
 
 More detailed information is available via the CLI. Stop the GUI (CTRL-C) and start the CLI:
 
