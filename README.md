@@ -1,11 +1,3 @@
-
-based on: https://clabs.netdevops.me/rs/cvx03/
-
-
-- to bind one container interface to another's so you can run tshark
-
-docker run -it --rm --net container:clab-cdc-spine01 nicolaka/netshoot tshark -i swp1
-
 # Spine-Leaf Data Centre Topology using Cumulus routers
 
 This lab consists of five [Cumulus](https://www.nvidia.com/en-us/networking/ethernet-switching/cumulus-linux/) [VX routers](https://docs.nvidia.com/networking-ethernet-software/cumulus-vx/) connected in a spine-leaf topology (two spine and three leaf). Each leaf router is connected to two hosts.
@@ -67,3 +59,11 @@ sudo clab destroy --topo cvx-dcn.clab.yml --cleanup
     $ docker exec clab-cdc-server01 ping 10.0.30.101
     ```
 
+
+# Additional Tip
+
+Bind one container interface to another's so you can run tshark:
+
+```
+$ docker run -it --rm --net container:clab-cdc-spine01 nicolaka/netshoot tshark -i swp1
+```
