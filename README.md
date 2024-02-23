@@ -40,7 +40,7 @@ sudo clab destroy --topo cvx-dcn.clab.yml --cleanup
 
 ## Try this
 
-1. Confirm that BGP sessions are established among all peers.  
+1. Confirm that BGP sessions are established among all peers.
 
    ```
    $ docker exec clab-cdc-spine01 vtysh -c "show bgp summary"
@@ -63,6 +63,8 @@ sudo clab destroy --topo cvx-dcn.clab.yml --cleanup
    ```
    docker exec clab-cdc-spine01 net show bgp
    ```
+
+   Note: if you encounter the error "Exiting: failed to connect to any daemons.", wait a couple of minutes.
 
 3. Show all routes
 
@@ -100,7 +102,9 @@ you can refer to these links:
 
 SuzieQ is also packaged as a Docker container, which we will use in this lab to get a quick look into the capabilities.
 
-To use SuzieQ, make sure that the clab is running as above, then use the following commands to start SuzieQ. The command attaches the container to the clab network and exposes the 8501 port for the GUI.
+To use SuzieQ, make sure that the clab is running as above, then use the following commands to start SuzieQ.
+Make sure you cnage the SQPATH to reflect the correct path to SuzieQ. 
+The command attaches the container to the clab network and exposes the 8501 port for the GUI.
 
 ```
 SQPATH=/path/to/suzieq
