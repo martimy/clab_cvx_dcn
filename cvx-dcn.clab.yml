@@ -12,7 +12,7 @@ topology:
         - config/leaf01/interfaces:/etc/network/interfaces
         - config/leaf01/daemons:/etc/frr/daemons
         - config/leaf01/frr.conf:/etc/frr/frr.conf
-      mgmt_ipv4: 172.20.20.21
+      mgmt-ipv4: 172.20.20.21
 
     leaf02:
       kind: cvx
@@ -22,7 +22,7 @@ topology:
         - config/leaf02/interfaces:/etc/network/interfaces
         - config/leaf02/daemons:/etc/frr/daemons
         - config/leaf02/frr.conf:/etc/frr/frr.conf
-      mgmt_ipv4: 172.20.20.22
+      mgmt-ipv4: 172.20.20.22
 
     leaf03:
       kind: cvx
@@ -32,7 +32,7 @@ topology:
         - config/leaf03/interfaces:/etc/network/interfaces
         - config/leaf03/daemons:/etc/frr/daemons
         - config/leaf03/frr.conf:/etc/frr/frr.conf
-      mgmt_ipv4: 172.20.20.23
+      mgmt-ipv4: 172.20.20.23
 
     spine01:
       kind: cvx
@@ -42,7 +42,7 @@ topology:
         - config/spine01/interfaces:/etc/network/interfaces
         - config/spine01/daemons:/etc/frr/daemons
         - config/spine01/frr.conf:/etc/frr/frr.conf
-      mgmt_ipv4: 172.20.20.11
+      mgmt-ipv4: 172.20.20.11
 
     spine02:
       kind: cvx
@@ -52,28 +52,28 @@ topology:
         - config/spine02/interfaces:/etc/network/interfaces
         - config/spine02/daemons:/etc/frr/daemons
         - config/spine02/frr.conf:/etc/frr/frr.conf
-      mgmt_ipv4: 172.20.20.12
+      mgmt-ipv4: 172.20.20.12
 
     server01:
       kind: linux
       image: networkop/host:ifreload
       binds:
         - config/server01/interfaces:/etc/network/interfaces
-      mgmt_ipv4: 172.20.20.31
+      mgmt-ipv4: 172.20.20.31
 
     server02:
       kind: linux
       image: networkop/host:ifreload
       binds:
         - config/server02/interfaces:/etc/network/interfaces
-      mgmt_ipv4: 172.20.20.32
+      mgmt-ipv4: 172.20.20.32
 
     server03:
       kind: linux
       image: networkop/host:ifreload
       binds:
         - config/server03/interfaces:/etc/network/interfaces
-      mgmt_ipv4: 172.20.20.33
+      mgmt-ipv4: 172.20.20.33
 
 
   links:
