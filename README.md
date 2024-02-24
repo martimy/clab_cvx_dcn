@@ -32,13 +32,13 @@ This lab uses the following Docker images form [networkop](https://hub.docker.co
 Use the following command to start the lab:
 
 ```
-sudo clab deploy --topo cvx-dcn.clab.yml
+sudo clab deploy -t cvx-dcn.clab.yml
 ```
 
 To end the lab:
 
 ```
-sudo clab destroy --topo cvx-dcn.clab.yml --cleanup
+sudo clab destroy -t cvx-dcn.clab.yml --cleanup
 ```
 
 ## Try this
@@ -81,6 +81,11 @@ sudo clab destroy --topo cvx-dcn.clab.yml --cleanup
     docker exec clab-cdc-server01 ping 10.0.30.101
     ```
 
+4. Show the topology
+
+   ```
+   clab graph -s "0.0.0.0:8080" -t cvx-dcn.clab.yml
+   ```
 
 ### Packet sniffing with Wireshark/Tshark
 
