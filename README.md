@@ -10,15 +10,18 @@ All routers in this lab run both BGP and OSPF using numbered interfaces. I will 
 
 <!--[Lab Topology](img/bgp_frr.png)-->
 
-## Acknowledgement
-
-This lab is inspired by the [Cumulus Test Drive lab](https://clabs.netdevops.me/rs/cvx03/) created by Michael Kashin.
 
 
 ## Requirements
 
 To use this lab, you need to install [containerlab](https://containerlab.srlinux.dev/) (I used the [script method](https://containerlab.srlinux.dev/install/#install-script) Ubuntu 20.04 VM). You also need to have basic familiarity with [Docker](https://www.docker.com/).
 
+Environment:
+
+- Ubuntu 20.04
+- Containerlab v0.51.3
+- Docker v25.03
+- 
 This lab uses the following Docker images form [networkop](https://hub.docker.com/u/networkop):
 
 - networkop/cx:5.3.0
@@ -154,7 +157,7 @@ suzieq> exit
 
 Once you finished exploring, you can exit the SuzieQ container. You can also end the clab as above.
 
-# Containerlab Commands Summary
+## Containerlab Commands Summary
 
 Here is a summary of common containerlab commands:
 
@@ -169,3 +172,6 @@ Here is a summary of common containerlab commands:
 
 For more details and examples, you can check out the [containerlab documentation](https://containerlab.dev/cmd/deploy/).
 
+## Acknowledgement
+
+This lab was originally inspired by the [Cumulus Test Drive lab](https://clabs.netdevops.me/rs/cvx03/) created by Michael Kashin.
