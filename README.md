@@ -8,9 +8,7 @@ Cumulus Linux is a fork of FRRouting so it uses similar set of instructions, but
 
 All routers in this lab run both BGP and OSPF using numbered interfaces. I will updated the lab to include unnumbered configuration as well.
 
-<!--[Lab Topology](img/bgp_frr.png)-->
-
-
+<!--[Lab Topology](topo.png)-->
 
 ## Requirements
 
