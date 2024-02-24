@@ -46,19 +46,21 @@ sudo clab destroy --topo cvx-dcn.clab.yml --cleanup
 1. Confirm that BGP sessions are established among all peers.
 
    ```
-   $ docker exec clab-cdc-spine01 vtysh -c "show bgp summary"
+   docker exec clab-cdc-spine01 vtysh -c "show bgp summary"
    ```
 
    or using Cumulus commands:
 
    ```
-   $ docker exec clab-cdc-spine01 net show bgp summary
+   docker exec clab-cdc-spine01 net show bgp summary
    ```
+
+   Note: if you encounter the error "Exiting: failed to connect to any daemons.", wait a couple of minutes.
 
 2. Show the routes learned from BGP in the routing table. Notices there are two paths to each host.
 
    ```
-   $ docker exec clab-cdc-leaf01 vtysh -c "show ip route bgp"
+   docker exec clab-cdc-leaf01 vtysh -c "show ip route bgp"
    ```
 
    or using Cumulus commands:
@@ -67,18 +69,16 @@ sudo clab destroy --topo cvx-dcn.clab.yml --cleanup
    docker exec clab-cdc-spine01 net show bgp
    ```
 
-   Note: if you encounter the error "Exiting: failed to connect to any daemons.", wait a couple of minutes.
-
 3. Show all routes
 
    ```
-   $ docker exec clab-cdc-spine01 net show route
+   docker exec clab-cdc-spine01 net show route
    ```
 
 3. Ping from any one host to another to verify connectivity.
 
     ```
-    $ docker exec clab-cdc-server01 ping 10.0.30.101
+    docker exec clab-cdc-server01 ping 10.0.30.101
     ```
 
 
@@ -87,7 +87,7 @@ sudo clab destroy --topo cvx-dcn.clab.yml --cleanup
 Bind one container interface to another's so you can run tshark:
 
 ```
-$ docker run -it --rm --net container:clab-cdc-spine01 nicolaka/netshoot tshark -i swp1
+docker run -it --rm --net container:clab-cdc-spine01 nicolaka/netshoot tshark -i swp1
 ```
 
 ## Using SuzieQ
