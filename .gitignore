@@ -1,2 +1,5 @@
 *.bak
 suzieq/dbdir
+observium/data
+observium/logs
+observium/rrd
