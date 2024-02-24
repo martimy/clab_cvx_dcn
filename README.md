@@ -167,5 +167,5 @@ Here is a summary of common containerlab commands:
 | `containerlab generate -t <file>` | Generate a CLOS-based lab topology file |
 | `containerlab version` | Show the containerlab version and build information |
 
-For more details and examples, you can check out the [containerlab documentation](https://containerlab.dev/cmd).
+For more details and examples, you can check out the [containerlab documentation](https://containerlab.dev/cmd/deploy/).
 
