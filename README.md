@@ -1,14 +1,16 @@
 # Spine-Leaf Data Centre Topology using Cumulus routers
 
-This lab consists of five [Cumulus](https://www.nvidia.com/en-us/networking/ethernet-switching/cumulus-linux/) [VX routers](https://docs.nvidia.com/networking-ethernet-software/cumulus-vx/) connected in a spine-leaf topology (two spine and three leaf). Each leaf router is connected to one Linux host.
+This repo includes code and instructions to create a test data centre network using [Cumulus](https://www.nvidia.com/en-us/networking/ethernet-switching/cumulus-linux/) routers. The network is created using [containerlab](https://containerlab.dev/) and it consists of five [VX routers](https://docs.nvidia.com/networking-ethernet-software/cumulus-vx/) connected in a spine-leaf topology (two spine and three leaf). Each leaf router is connected to one Linux host.
 
-Cumulus Linux is a fork of FRRouting so it uses similar set of instructions, but it adds more functionalities, including unnumbered interfaces, which are useful in configuring BGP or OSFP in data centres.
-
-All routers in this lab run both BGP and OSPF using numbered interfaces. I will updated the lab to include unnumbered configuration as well.
-
-The lab also includes the ability to run [Observium](https://www.observium.org/), which is a network monitoring and management platform, and [SuzieQ](https://www.stardustsystems.net/suzieq/), an open source software for network observability.
+Cumulus Linux supports various routing protocols such as BGP, OSPF, and RIP based on the open-source software [FRRouting](https://frrouting.org/). Cumulus routers can be deployed on bare-metal switches or virtual machines, such as Cumulus VX used in this network.
 
 ![Lab Topology](img/dc_topo.png)
+
+## Applications
+
+1. Routing Configuration: You can use this network environment to learn how to configure various network protocols in the original topology. You may also modify the topology or extend. The initial configuration includes BGP and OSPF routing protocols using numbered interfaces. Cumulus supports unnumbered interface configuration as well.
+
+2. Network Monitoring: You can use this network environment to learn network management and monitoring using SNMP. You can run and configure [Observium](https://www.observium.org/), which is a network monitoring platform, to receive networking performance metrics and events. Also included is [SuzieQ](https://www.stardustsystems.net/suzieq/), an open source software for network observability.
 
 ## Requirements
 
