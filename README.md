@@ -21,7 +21,7 @@ To use this lab, you need to install [containerlab](https://containerlab.srlinux
 
 This lab uses the following Docker images form [networkop](https://hub.docker.com/u/networkop):
 
-- networkop/cx:4.3.0
+- networkop/cx:5.3.0
 - networkop/host:ifreload
 
 ## Starting and ending the lab
@@ -153,3 +153,19 @@ suzieq> exit
 ```
 
 Once you finished exploring, you can exit the SuzieQ container. You can also end the clab as above.
+
+# Containerlab Commands Summary
+
+Here is a summary of common containerlab commands:
+
+| Command | Description |
+| --- | --- |
+| `containerlab deploy -t <file>` | Deploy a lab from a topology file |
+| `containerlab destroy -t <file>` | Destroy a lab from a topology file |
+| `containerlab inspect -t <file>` | Inspect the lab status and configuration |
+| `containerlab graph -t <file>` | Generate a graphical representation of the lab topology |
+| `containerlab generate -t <file>` | Generate a CLOS-based lab topology file |
+| `containerlab version` | Show the containerlab version and build information |
+
+For more details and examples, you can check out the [containerlab documentation](https://containerlab.dev/cmd).
+
