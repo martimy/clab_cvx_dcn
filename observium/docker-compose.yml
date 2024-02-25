@@ -20,6 +20,7 @@ services:
 
   app:
     image: martimy/observium:23.9
+    privileged: true
     environment:
       - OBSERVIUM_ADMIN_USER=admin
       - OBSERVIUM_ADMIN_PASS=passw0rd
@@ -33,7 +34,8 @@ services:
       - ./logs:/opt/observium/logs
       - ./rrd:/opt/observium/rrd
     networks:
-      - clab
+      clab:
+        ipv4_address: 172.20.20.200
     ports:
       - "8888:80"
     restart: unless-stopped

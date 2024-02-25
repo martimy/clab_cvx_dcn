@@ -38,7 +38,11 @@ RUN apt update && \
                     supervisor \
                     logrotate \
                     curl \
-                    wget
+                    wget \
+                    rsyslog
+
+# Configure rsyslog for observium
+COPY rsyslog.conf /etc/rsyslog.d/30-observium.conf
 
 # install observium required packages
 RUN apt install -y  libapache2-mod-php8.1 \

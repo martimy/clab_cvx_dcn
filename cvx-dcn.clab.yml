@@ -45,6 +45,7 @@ topology:
         - config/spine01/interfaces:/etc/network/interfaces
         - config/spine01/daemons:/etc/frr/daemons
         - config/spine01/frr.conf:/etc/frr/frr.conf
+        - config/11-remotesyslog.conf:/etc/rsyslog.d/11-remotesyslog.conf
       mgmt-ipv4: 172.20.20.11
       group: spine
 
