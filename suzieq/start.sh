@@ -1,4 +1,3 @@
-#SQPATH=/home/vagrant/myclabs/cvx_dcn/suzieq
 docker run --rm -it -p 8501:8501 \
   -v $(pwd)/dbdir:/home/suzieq/parquet \
   -v $(pwd)/inventory.yml:/home/suzieq/inventory.yml \
