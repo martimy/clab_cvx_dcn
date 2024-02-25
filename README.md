@@ -215,39 +215,33 @@ Note: all configuration changes as well as data collected from devices will be p
 
 SuzieQ is an agentless open-source application that collects, normalizes, and stores timestamped network information from multiple vendors. A network engineer can then use the information to verify the health of the network or identify issues quickly.
 
-SuzieQ is a Python module/application that consists of three parts, a poller, a CLI interface, and a GUI interface. To learn more about SuzieQ,
-you can refer to these links:
+SuzieQ is a Python module/application that consists of three parts, a poller, a CLI interface, and a GUI interface. 
+
+<!--
+To learn more about SuzieQ, you can refer to these links:
 
 - [Introduction to SuzieQ](https://www.packetcoders.io/introduction-to-suzieq/)
 - [SuzieQ Docs](https://suzieq.readthedocs.io/en/latest/)
 - [Github repo](https://github.com/netenglabs/suzieq)
 - [Whoop Dee Doo for my SuzieQ!](https://gratuitous-arp.net/fabric-like-visibility-to-your-network-with-suzieq/) by Claudia de Luna
--
+-->
 
-SuzieQ is also packaged as a Docker container, which we will use in this lab to get a quick look into the capabilities.
+SuzieQ is also packaged as a Docker container, which you can use in this lab to get a quick look into its capabilities.
 
-To use SuzieQ, make sure that the clab is running as above, then use the following commands to start SuzieQ.
-Make sure you cnage the SQPATH to reflect the correct path to SuzieQ.
-The command attaches the container to the clab network and exposes the 8501 port for the GUI.
+To use SuzieQ, make sure that the clab is running as above, then change directory to suzieq.
 
 ```
-SQPATH=/path/to/suzieq
-docker run --rm -it -p 8501:8501 \
-  -v $SQPATH/dbdir:/home/suzieq/parquet \
-  -v $SQPATH/inventory.yml:/home/suzieq/inventory.yml \
-  -v $SQPATH/my-config.yml:/home/suzieq/my-config.yml \
-  --name sq-poller --network=clab \
-  netenglabs/suzieq:latest
+$cd suzieq
+suzieq$ ./start.sh
 ```
-
 
 Start the Poller to collect information about the devices in the network:
 
 ```
-suzieq@b7c0b9263b48:~$ sq-poller -I inventory.yml -c my-config.yml
+suzieq@b7c0b9263b48:~$ sq-poller -I inventory.yml -c my-config.yml &
 ```
 
-After few minutes, stop the Poller (CTRL-C) and start the GUI:
+Then and start the GUI:
 
 ```
 suzieq@b7c0b9263b48:~$ suzieq-gui
@@ -259,7 +253,7 @@ Direct you browser to "localhost:8501". The [Streamlit](https://streamlit.io/) a
 
 ![Path](img/suzieq_path.png)
 
-More detailed information is available via the CLI. Stop the GUI (CTRL-C) and start the CLI:
+More detailed information is available via the CLI. Stop the GUI (CTRL-C) and start the CLI and type the command 'device show' at the prompt:
 
 ```
 suzieq@b7c0b9263b48:~$ suzieq-cli
