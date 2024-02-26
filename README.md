@@ -41,13 +41,13 @@ cd dcn
 Use the following command to start the lab:
 
 ```
-sudo clab deploy -t cvx-dcn.clab.yml
+sudo clab deploy -t cvx-dcn.clab.yaml
 ```
 
 To end the lab:
 
 ```
-sudo clab destroy -t cvx-dcn.clab.yml --cleanup
+sudo clab destroy -t cvx-dcn.clab.yaml --cleanup
 ```
 
 ## Basic Usage
@@ -116,7 +116,7 @@ sudo clab destroy -t cvx-dcn.clab.yml --cleanup
 6. Show the topology
 
    ```
-   clab graph -s "0.0.0.0:8080" -t cvx-dcn.clab.yml
+   clab graph -s "0.0.0.0:8080" -t cvx-dcn.clab.yaml
    ```
 
    Enter the url 'localhost:8080' in your browser to view the topology. You should see a graph similar to the figure above.
@@ -131,6 +131,22 @@ sudo clab destroy -t cvx-dcn.clab.yml --cleanup
    ```
 
    You may also need to generate traffic in the network to observe the packets.
+
+## Seconf Topoloy
+
+There is also a second topology that includes a switch (OVS) connected to each leaf router. Two servers are connected to each switch, making the total of servers in the topology six.
+
+To deploy the clab using this topology, you must create the Open vSwithes first (as per clab rules), then deploy the topology. To end the clab, "destroy" the topology then delete the switches. The following scripts simpify the tasks:
+
+```
+$ sudo ./setup-dc.sh
+$ sudo clab deploy -t spine-leaf.clab.yaml
+```
+
+```
+$ sudo clab destroy -t spine-leaf.clab.yaml --cleanup
+$ sudo ./reset-dc.sh
+```
 
 
 ## Using Observium
@@ -238,7 +254,7 @@ suzieq$ ./start.sh
 Start the Poller to collect information about the devices in the network:
 
 ```
-suzieq@b7c0b9263b48:~$ sq-poller -I inventory.yml -c my-config.yml &
+suzieq@b7c0b9263b48:~$ sq-poller -I inventory.yaml -c my-config.yaml &
 ```
 
 Then and start the GUI:
