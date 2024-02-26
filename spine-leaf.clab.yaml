@@ -1,0 +1,144 @@
+name: cdc # Cumulus Data Centre
+
+# Note: default runtime is ignite
+
+topology:
+  nodes:
+    leaf01:
+      kind: cvx
+      image: networkop/cx:5.3.0
+      runtime: docker
+      binds:
+        - config/leaf01/interfaces:/etc/network/interfaces
+        - config/leaf01/daemons:/etc/frr/daemons
+        - config/leaf01/frr.conf:/etc/frr/frr.conf
+      mgmt-ipv4: 172.20.20.21
+      group: leaf
+
+    leaf02:
+      kind: cvx
+      image: networkop/cx:5.3.0
+      runtime: docker
+      binds:
+        - config/leaf02/interfaces:/etc/network/interfaces
+        - config/leaf02/daemons:/etc/frr/daemons
+        - config/leaf02/frr.conf:/etc/frr/frr.conf
+      mgmt-ipv4: 172.20.20.22
+      group: leaf
+
+    leaf03:
+      kind: cvx
+      image: networkop/cx:5.3.0
+      runtime: docker
+      binds:
+        - config/leaf03/interfaces:/etc/network/interfaces
+        - config/leaf03/daemons:/etc/frr/daemons
+        - config/leaf03/frr.conf:/etc/frr/frr.conf
+      mgmt-ipv4: 172.20.20.23
+      group: leaf
+
+    spine01:
+      kind: cvx
+      image: networkop/cx:5.3.0
+      runtime: docker
+      binds:
+        - config/spine01/interfaces:/etc/network/interfaces
+        - config/spine01/daemons:/etc/frr/daemons
+        - config/spine01/frr.conf:/etc/frr/frr.conf
+        - config/11-remotesyslog.conf:/etc/rsyslog.d/11-remotesyslog.conf
+      mgmt-ipv4: 172.20.20.11
+      group: spine
+
+    spine02:
+      kind: cvx
+      image: networkop/cx:5.3.0
+      runtime: docker
+      binds:
+        - config/spine02/interfaces:/etc/network/interfaces
+        - config/spine02/daemons:/etc/frr/daemons
+        - config/spine02/frr.conf:/etc/frr/frr.conf
+      mgmt-ipv4: 172.20.20.12
+      group: spine
+
+    server01:
+      kind: linux
+      image: networkop/host:ifreload
+      binds:
+        - config/server01/interfaces:/etc/network/interfaces
+      mgmt-ipv4: 172.20.20.31
+      group: server
+
+    server02:
+      kind: linux
+      image: networkop/host:ifreload
+      binds:
+        - config/server02/interfaces:/etc/network/interfaces
+      mgmt-ipv4: 172.20.20.32
+      group: server
+
+    server03:
+      kind: linux
+      image: networkop/host:ifreload
+      binds:
+        - config/server03/interfaces:/etc/network/interfaces
+      mgmt-ipv4: 172.20.20.33
+      group: server
+
+    server04:
+      kind: linux
+      image: networkop/host:ifreload
+      binds:
+        - config/server04/interfaces:/etc/network/interfaces
+      mgmt-ipv4: 172.20.20.34
+      group: server
+
+    server05:
+      kind: linux
+      image: networkop/host:ifreload
+      binds:
+        - config/server05/interfaces:/etc/network/interfaces
+      mgmt-ipv4: 172.20.20.35
+      group: server
+
+    server06:
+      kind: linux
+      image: networkop/host:ifreload
+      binds:
+        - config/server06/interfaces:/etc/network/interfaces
+      mgmt-ipv4: 172.20.20.36
+      group: server
+
+    switch01:
+      kind: ovs-bridge
+      group: 3
+
+    switch02:
+      kind: ovs-bridge
+      group: 3
+
+    switch03:
+      kind: ovs-bridge
+      group: 3
+  links:
+    - endpoints: ["switch01:eth11", "server01:eth1"]
+    - endpoints: ["switch01:eth12", "server04:eth1"]
+    - endpoints: ["switch02:eth21", "server02:eth1"]
+    - endpoints: ["switch02:eth22", "server05:eth1"]
+    - endpoints: ["switch03:eth31", "server03:eth1"]
+    - endpoints: ["switch03:eth32", "server06:eth1"]
+
+    - endpoints: ["leaf01:swp1", "switch01:eth10"]
+    - endpoints: ["leaf02:swp1", "switch02:eth20"]
+    - endpoints: ["leaf03:swp1", "switch03:eth30"]
+
+    - endpoints: ["spine01:swp1", "leaf01:swp11"]
+    - endpoints: ["spine01:swp2", "leaf02:swp11"]
+    - endpoints: ["spine01:swp3", "leaf03:swp11"]
+    - endpoints: ["spine02:swp1", "leaf01:swp12"]
+    - endpoints: ["spine02:swp2", "leaf02:swp12"]
+    - endpoints: ["spine02:swp3", "leaf03:swp12"]
+
+# All nodes were assigned static addresses
+# to be able to use SuzieQ
+mgmt:
+  ipv4-gw: 172.20.20.100
