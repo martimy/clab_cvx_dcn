@@ -172,6 +172,11 @@ $ sudo ./reset-dc.sh
 ```
 
 
+## Using VLANs
+
+The topology in this lab puts all hosts in one VLAN. You can seperate the hosts into two or more VLANs by adding VLAN IDs to the bridge interface of the leaf routers and changing the host IP addresses accordingly. See [Cumulus documentation](https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-37/Layer-2/Ethernet-Bridging-VLANs/) for details.
+
+
 ## Using Observium
 
 Observium provides real-time information about network health and performance. It uses ICMP, SNMP, and Syslog protocols to automatically discover network devices and services, collect performance metrics, and generate alerts when problems are detected. It supports a wide range of device types, platforms and operating systems, and offers features such as traffic accounting, threshold alerting, and integration with third party applications. Observium has three editions: Community, Professional, and Enterprise. The Community Edition is free and open source,
