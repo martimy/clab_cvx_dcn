@@ -22,7 +22,9 @@ iface swp12
   address 10.0.0.162
   netmask 255.255.255.224
 
-auto swp1
-iface swp1
+auto bridge
+iface bridge
   address 10.0.20.1
   netmask 255.255.255.0
+  bridge-ports swp1 swp2
+  bridge-vlan-aware no

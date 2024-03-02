@@ -84,11 +84,38 @@ topology:
       mgmt-ipv4: 172.20.20.33
       group: server
 
+    server04:
+      kind: linux
+      image: networkop/host:ifreload
+      binds:
+        - config/server04/interfaces:/etc/network/interfaces
+      mgmt-ipv4: 172.20.20.34
+      group: server
+
+    server05:
+      kind: linux
+      image: networkop/host:ifreload
+      binds:
+        - config/server05/interfaces:/etc/network/interfaces
+      mgmt-ipv4: 172.20.20.35
+      group: server
+
+    server06:
+      kind: linux
+      image: networkop/host:ifreload
+      binds:
+        - config/server06/interfaces:/etc/network/interfaces
+      mgmt-ipv4: 172.20.20.36
+      group: server
+
 
   links:
     - endpoints: ["leaf01:swp1", "server01:eth1"]
+    - endpoints: ["leaf01:swp2", "server04:eth1"]
     - endpoints: ["leaf02:swp1", "server02:eth1"]
+    - endpoints: ["leaf02:swp2", "server05:eth1"]
     - endpoints: ["leaf03:swp1", "server03:eth1"]
+    - endpoints: ["leaf03:swp2", "server06:eth1"]
 
     - endpoints: ["spine01:swp1", "leaf01:swp11"]
     - endpoints: ["spine01:swp2", "leaf02:swp11"]
