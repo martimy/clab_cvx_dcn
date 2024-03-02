@@ -132,7 +132,30 @@ sudo clab destroy -t cvx-dcn.clab.yaml --cleanup
 
    You may also need to generate traffic in the network to observe the packets.
 
-## Seconf Topoloy
+8. Router configuration
+
+   You can configure the routers using vtysh:
+
+    ```
+   $ docker exec -it clab-cdc-spine01 vtysh
+
+    Hello, this is FRRouting (version 7.5+cl5.3.0u0).
+    Copyright 1996-2005 Kunihiro Ishiguro, et al.
+    
+    spine01# show run
+    Building configuration...
+    
+    Current configuration:
+    !
+    frr version 7.5+cl5.3.0u0
+    frr defaults traditional
+    hostname spine01
+    service integrated-vtysh-config
+    !
+    ...
+    ```
+   
+## Second Topoloy
 
 There is also a second topology that includes a switch (OVS) connected to each leaf router. Two servers are connected to each switch, making the total of servers in the topology six.
 
