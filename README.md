@@ -4,7 +4,7 @@ This repo includes code and instructions to create a test data centre network us
 
 Cumulus Linux supports various routing protocols such as BGP, OSPF, and RIP based on the open-source software [FRRouting](https://frrouting.org/). Cumulus routers can be deployed on bare-metal switches or virtual machines, such as Cumulus VX used in this network.
 
-![Lab Topology](img/dc_topo.png)
+![Lab Topology](img/cvx_dc.png)
 
 ## Applications
 
