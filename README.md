@@ -1,6 +1,6 @@
 # Spine-Leaf Data Centre Topology using Cumulus routers
 
-This repo includes code and instructions to create a test data centre network using [Cumulus](https://www.nvidia.com/en-us/networking/ethernet-switching/cumulus-linux/) routers. The network is created using [containerlab](https://containerlab.dev/) and it consists of five [VX routers](https://docs.nvidia.com/networking-ethernet-software/cumulus-vx/) connected in a spine-leaf topology (two spine and three leaf). Each leaf router is connected to one Linux host.
+This repo includes code and instructions to create a test data centre network using [Cumulus](https://www.nvidia.com/en-us/networking/ethernet-switching/cumulus-linux/) routers. The network is created using [containerlab](https://containerlab.dev/) and it consists of five [VX routers](https://docs.nvidia.com/networking-ethernet-software/cumulus-vx/) connected in a spine-leaf topology (two spine and three leaf). Each leaf router is connected to twp Linux hosts.
 
 Cumulus Linux supports various routing protocols such as BGP, OSPF, and RIP based on the open-source software [FRRouting](https://frrouting.org/). Cumulus routers can be deployed on bare-metal switches or virtual machines, such as Cumulus VX used in this network.
 
@@ -155,9 +155,9 @@ sudo clab destroy -t cvx-dcn.clab.yaml --cleanup
     ...
     ```
    
-## Second Topoloy
+## Alternative Topoloy
 
-There is also a second topology that includes a switch (OVS) connected to each leaf router. Two servers are connected to each switch, making the total of servers in the topology six.
+There is also an alternative way to include a switch (OVS) connected to each leaf router. Two servers are connected to each switch, making the total of servers in the topology six.
 
 To deploy the clab using this topology, you must create the Open vSwithes first (as per clab rules), then deploy the topology. To end the clab, "destroy" the topology then delete the switches. The following scripts simpify the tasks:
 
@@ -306,6 +306,7 @@ suzieq> device show
 5   servers  server01   N/A     N/A      N/A          N/A  neverpoll      server01 1970-01-01 00:00:00+00:00
 6   servers  server02   N/A     N/A      N/A          N/A  neverpoll      server02 1970-01-01 00:00:00+00:00
 7   servers  server03   N/A     N/A      N/A          N/A  neverpoll      server03 1970-01-01 00:00:00+00:00
+...
 suzieq> exit
 ```
 
