@@ -108,6 +108,11 @@ topology:
       mgmt-ipv4: 172.20.20.36
       group: server
 
+    nms:
+      kind: linux
+      image: nicolaka/netshoot
+      mgmt-ipv4: 172.20.20.101
+      group: server
 
   links:
     - endpoints: ["leaf01:swp1", "server01:eth1"]

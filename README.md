@@ -26,6 +26,7 @@ This lab uses the following Docker images form [networkop](https://hub.docker.co
 
 - networkop/cx:5.3.0
 - networkop/host:ifreload
+- 
 
 ## Cloning the repository
 
@@ -199,7 +200,7 @@ SNMP configuration completed for clab-cdc-spine01.
 Confirm the ability to connect to a router using SNMP:
 
 ```
-docker run -it --rm --net clab nicolaka/netshoot snmpwalk -v 2c -c snmpcumulus 172.20.20.11 system
+docker exec clab-cdc-nms snmpwalk -v 2c -c snmpcumulus 172.20.20.11 system
 ```
 
 This is the partial output:
