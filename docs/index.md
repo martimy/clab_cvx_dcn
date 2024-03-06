@@ -33,10 +33,10 @@ docker exec clab-cdc-nms snmpwalk -v 2c -c snmpcumulus 172.20.20.11 system
 ```
 snmpget -v 2c -c snmpcumulus 172.20.20.11 sysName.0
 snmpget -v 2c -c snmpcumulus 172.20.20.11 sysUpTime.0
-``
+```
 
 
-# getNextRequest
+## getNextRequest
 
 ```
 snmpgetnext -v 2c -c snmpcumulus 172.20.20.11 system
@@ -44,7 +44,7 @@ snmpgetnext -v 2c -c snmpcumulus 172.20.20.11 sysDescr.0
 ```
 
 
-# getBulkRequest. 
+## getBulkRequest. 
 
 The last paramter r3 represent the number of number of OIDs requested
 
@@ -64,7 +64,7 @@ Notice what happens when the non-repeaters changes
 snmpbulkget -v 2c -c snmpcumulus 172.20.20.11 system tcp ifTable -C n1 -C r5
 ```
 
-# snmpwalk
+## snmpwalk
 
 snmpwalk gets the whole mib tree:
 
@@ -78,7 +78,7 @@ or part of it:
 snmpwalk -v 2c -c snmpcumulus 172.20.20.11 system
 ```
 
-# snmptable
+## snmptable
 
 To display table:
 
