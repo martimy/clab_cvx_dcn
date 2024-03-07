@@ -137,9 +137,12 @@ sudo clab destroy -t cvx-dcn.clab.yaml --cleanup
    docker run -it --rm --net container:clab-cdc-spine01 nicolaka/netshoot tshark -i swp1
    ```
 
+   To filter specific protocol, use the -Y option, for example '-Y "snmp"'. To filter based on port, use '-f "udp port 161'. Please consult the tshark documentaion for more details.
+   
+    
    You may also need to generate traffic in the network to observe the packets.
 
-8. Router configuration
+9. Router configuration
 
    You can configure the routers using vtysh:
 
