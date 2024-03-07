@@ -35,6 +35,8 @@ snmpget -v 2c -c snmpcumulus 172.20.20.11 sysName.0
 snmpget -v 2c -c snmpcumulus 172.20.20.11 sysUpTime.0
 ```
 
+Add the option '-On' to print the numeric value of the OID.
+
 
 ## getNextRequest
 
