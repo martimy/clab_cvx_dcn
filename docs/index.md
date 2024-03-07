@@ -51,7 +51,7 @@ snmpgetnext -v 2c -c snmpcumulus 172.20.20.11 sysDescr.0
 The last paramter r3 represent the number of number of OIDs requested
 
 ```
-snmpbulkget -v 2c -c snmpcumulus 172.20.20.11 system -C r3
+snmpbulkget -v 2c -c snmpcumulus -C n0 -C r3 172.20.20.11 system
 ```
 
 This example explains the use of non-repeaters and max-repititions
