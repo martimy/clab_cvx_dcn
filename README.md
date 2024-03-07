@@ -21,14 +21,19 @@ To use this lab, you need to install [containerlab](https://containerlab.srlinux
 Environment:
 
 - Ubuntu 20.04
-- Containerlab v0.51.3
-- Docker v25.03
+- Containerlab v0.51.3. Follow these [instructions](https://containerlab.dev/install/) to install.
+- Docker v25.03. Follow these [instructions](https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script) to install.
 
 This lab uses the following Docker images form [networkop](https://hub.docker.com/u/networkop):
 
 - networkop/cx:5.3.0
 - networkop/host:ifreload
-- 
+- nicolaka/netshoot:latest
+- netenglabs/suzieq:latest (optional)
+- martimy/observium:23.9 (optional)
+- mariadb:10.6.4 (optional)
+
+These images will be downloaded automatically by containerlab when you deploy the lab topology for the first time.
 
 ## Documentation
 
