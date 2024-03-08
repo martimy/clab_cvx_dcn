@@ -2,42 +2,44 @@
 
 [![Static Badge](https://img.shields.io/badge/Docs-github.io-blue)](https://martimy.github.io/clab_cvx_dcn)
 
-This repo includes code and instructions to create a test data centre network using [Cumulus](https://www.nvidia.com/en-us/networking/ethernet-switching/cumulus-linux/) routers. The network is created using [containerlab](https://containerlab.dev/) and it consists of five [VX routers](https://docs.nvidia.com/networking-ethernet-software/cumulus-vx/) connected in a spine-leaf topology (two spine and three leaf). Each leaf router is connected to twp Linux hosts.
+This repo includes code and instructions to create a test data centre network using [Cumulus](https://www.nvidia.com/en-us/networking/ethernet-switching/cumulus-linux/) routers. The network is created using [containerlab](https://containerlab.dev/) and it consists of five [Cumulus VX routers](https://docs.nvidia.com/networking-ethernet-software/cumulus-vx/) connected in a spine-leaf topology (two spine and three leaf). Each leaf router is connected to two Linux hosts.
 
 Cumulus Linux supports various routing protocols such as BGP, OSPF, and RIP based on the open-source software [FRRouting](https://frrouting.org/). Cumulus routers can be deployed on bare-metal switches or virtual machines, such as Cumulus VX used in this network.
 
 ![Lab Topology](img/cvx_dc.png)
 
+## Documentation
+
+Find more documentation [here](https://martimy.github.io/clab_cvx_dcn/).
+
 ## Applications
 
-1. Routing Configuration: You can use this network environment to learn how to configure various network protocols in the original topology. You may also modify the topology or extend. The initial configuration includes BGP and OSPF routing protocols using numbered interfaces. Cumulus supports unnumbered interface configuration as well.
+This lab environment can be used to learn and explore:
+
+1. Routing Configuration: You can use this network environment to learn how to configure various network protocols in the original topology. You may also modify the topology or extend it. The initial configuration includes BGP and OSPF routing protocols using numbered interfaces. Cumulus supports unnumbered interface configuration as well.
 
 2. Network Monitoring: You can use this network environment to learn network management and monitoring using SNMP. You can run and configure [Observium](https://www.observium.org/), which is a network monitoring platform, to receive networking performance metrics and events. Also included is [SuzieQ](https://www.stardustsystems.net/suzieq/), an open source software for network observability.
 
 ## Requirements
 
-To use this lab, you need to install [containerlab](https://containerlab.srlinux.dev/) (I used the [script method](https://containerlab.srlinux.dev/install/#install-script) Ubuntu 20.04 VM). You also need to have basic familiarity with [Docker](https://www.docker.com/).
+To use this lab, you need to have basic familiarity with Linux (Ubuntu), [Docker](https://www.docker.com/), and [containerlab](https://containerlab.srlinux.dev/). This lab was created and tested on an Ubuntu VM created using Vagrant in VirtualBox.   
 
 Environment:
 
 - Ubuntu 20.04
-- Containerlab v0.51.3. Follow these [instructions](https://containerlab.dev/install/) to install.
 - Docker v25.03. Follow these [instructions](https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script) to install.
+- Containerlab v0.51.3. Follow these [instructions](https://containerlab.dev/install/) to install.
 
-This lab uses the following Docker images form [networkop](https://hub.docker.com/u/networkop):
+This lab uses the following Docker images:
 
-- networkop/cx:5.3.0
+- [networkop/cx:5.3.0](https://hub.docker.com/u/networkop)
 - networkop/host:ifreload
-- nicolaka/netshoot:latest
-- netenglabs/suzieq:latest (optional)
+- [nicolaka/netshoot:latest](https://github.com/nicolaka/netshoot)
+- [netenglabs/suzieq:latest](https://github.com/netenglabs/suzieq) (optional)
 - martimy/observium:23.9 (optional)
-- mariadb:10.6.4 (optional)
+- mariadb:10.6.4 (needed for Observium)
 
 These images will be downloaded automatically by containerlab when you deploy the lab topology for the first time.
-
-## Documentation
-
-Find more documentation [here](https://martimy.github.io/clab_cvx_dcn/).
 
 ## Cloning the repository
 
@@ -143,8 +145,8 @@ sudo clab destroy -t cvx-dcn.clab.yaml --cleanup
    ```
 
    To filter specific protocol, use the -Y option, for example '-Y "snmp"'. To filter based on port, use '-f "udp port 161"'. Please consult the tshark documentaion for more details.
-   
-    
+
+
    You may also need to generate traffic in the network to observe the packets.
 
 9. Router configuration
@@ -156,10 +158,10 @@ sudo clab destroy -t cvx-dcn.clab.yaml --cleanup
 
     Hello, this is FRRouting (version 7.5+cl5.3.0u0).
     Copyright 1996-2005 Kunihiro Ishiguro, et al.
-    
+
     spine01# show run
     Building configuration...
-    
+
     Current configuration:
     !
     frr version 7.5+cl5.3.0u0
@@ -169,7 +171,7 @@ sudo clab destroy -t cvx-dcn.clab.yaml --cleanup
     !
     ...
     ```
-   
+
 ## Alternative Topoloy
 
 There is also an alternative way to include a switch (OVS) connected to each leaf router. Two servers are connected to each switch, making the total of servers in the topology six.
@@ -192,145 +194,6 @@ $ sudo ./reset-dc.sh
 The topology in this lab puts all hosts in one VLAN. You can seperate the hosts into two or more VLANs by adding VLAN IDs to the bridge interface of the leaf routers and changing the host IP addresses accordingly. See [Cumulus documentation](https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-37/Layer-2/Ethernet-Bridging-VLANs/) for details.
 
 
-## Using Observium
-
-Observium provides real-time information about network health and performance. It uses ICMP, SNMP, and Syslog protocols to automatically discover network devices and services, collect performance metrics, and generate alerts when problems are detected. It supports a wide range of device types, platforms and operating systems, and offers features such as traffic accounting, threshold alerting, and integration with third party applications. Observium has three editions: Community, Professional, and Enterprise. The Community Edition is free and open source,
-
-To able to use Observium, you must enable SNMP on all routers while they are running:
-
-```
-~/dcn$  ./enable_snmp.sh
-```
-
-The script will start the SNMP daemon in each router and update the configuration file snmpd.conf. The SNMP community string is `snmpcumulus` for SNMP version 1 and 2c. You may also configure SNMPv3 for more security.
-
-```
-Configuring SNMP for clab-cdc-spine01...
-SNMP configuration completed for clab-cdc-spine01.
-...
-```
-
-
-Confirm the ability to connect to a router using SNMP:
-
-```
-docker exec clab-cdc-nms snmpwalk -v 2c -c snmpcumulus 172.20.20.11 system
-```
-
-This is the partial output:
-
-```
-SNMPv2-MIB::sysDescr.0 = STRING: Cumulus-Linux 5.3.0 (Linux Kernel UTC)
-SNMPv2-MIB::sysObjectID.0 = OID: SNMPv2-SMI::enterprises.40310
-DISMAN-EVENT-MIB::sysUpTimeInstance = Timeticks: (13854) 0:02:18.54
-SNMPv2-MIB::sysContact.0 = STRING: root
-SNMPv2-MIB::sysName.0 = STRING: spine01
-SNMPv2-MIB::sysLocation.0 = STRING: Unknown
-SNMPv2-MIB::sysServices.0 = INTEGER: 72
-...
-```
-
-Change to the Observium directory and create three sub directories (you need to do this only once):
-
-```
-~/dcn$ cd observium
-~/dcn/observium$ mkdir {data,logs,rrd}
-```
-
-Start Observium:
-
-```
-~/dcn/observium$ docker compose up -d
-```
-
-Open a browser and access Observium via (http://localhost:8888/). Use the username and password found in the `docker-compose.yaml` file. You may change them later.
-
-To add devices to Observium, used the following example:
-
-```
-docker compose exec app /opt/observium/add_device.php 172.20.20.11 snmpcumulus v2c
-```
-
-Run the discovery and polling scripts for the first time:
-
-```
-docker compose exec app /opt/observium/discovery.php -h all
-docker compose exec app /opt/observium/poller.php -h all
-```
-
-Note: discovery and polling will occur periodically.  
-
-![Observium](img/observium.png)
-
-To stop Observium:
-
-```
-docker compose down
-```
-
-Note: all configuration changes as well as data collected from devices will be persistent even after stopping and removing the containers. The data is saved in the directories you created above.
-
-## Using SuzieQ
-
-SuzieQ is an agentless open-source application that collects, normalizes, and stores timestamped network information from multiple vendors. A network engineer can then use the information to verify the health of the network or identify issues quickly.
-
-SuzieQ is a Python module/application that consists of three parts, a poller, a CLI interface, and a GUI interface. 
-
-<!--
-To learn more about SuzieQ, you can refer to these links:
-
-- [Introduction to SuzieQ](https://www.packetcoders.io/introduction-to-suzieq/)
-- [SuzieQ Docs](https://suzieq.readthedocs.io/en/latest/)
-- [Github repo](https://github.com/netenglabs/suzieq)
-- [Whoop Dee Doo for my SuzieQ!](https://gratuitous-arp.net/fabric-like-visibility-to-your-network-with-suzieq/) by Claudia de Luna
--->
-
-SuzieQ is also packaged as a Docker container, which you can use in this lab to get a quick look into its capabilities.
-
-To use SuzieQ, make sure that the clab is running as above, then change directory to suzieq.
-
-```
-$cd suzieq
-suzieq$ ./start.sh
-```
-
-Start the Poller to collect information about the devices in the network:
-
-```
-suzieq@b7c0b9263b48:~$ sq-poller -I inventory.yaml -c my-config.yaml &
-```
-
-Then and start the GUI:
-
-```
-suzieq@b7c0b9263b48:~$ suzieq-gui
-```
-
-Direct you browser to "localhost:8501". The [Streamlit](https://streamlit.io/) app gives access to various information that the Poller collected earlier.
-
-![Status](img/suzieq_status.png)
-
-![Path](img/suzieq_path.png)
-
-More detailed information is available via the CLI. Stop the GUI (CTRL-C) and start the CLI and type the command 'device show' at the prompt:
-
-```
-suzieq@b7c0b9263b48:~$ suzieq-cli
-suzieq> device show
-  namespace  hostname model version   vendor architecture     status       address           bootupTimestamp
-0   routers    leaf01    VX   4.3.0  Cumulus       x86_64      alive  172.20.20.21 2022-11-02 12:04:47+00:00
-1   routers    leaf02    VX   4.3.0  Cumulus       x86_64      alive  172.20.20.22 2022-11-02 12:04:47+00:00
-2   routers    leaf03    VX   4.3.0  Cumulus       x86_64      alive  172.20.20.23 2022-11-02 12:04:47+00:00
-3   routers   spine01    VX   4.3.0  Cumulus       x86_64      alive  172.20.20.11 2022-11-02 12:04:47+00:00
-4   routers   spine02    VX   4.3.0  Cumulus       x86_64      alive  172.20.20.12 2022-11-02 12:04:47+00:00
-5   servers  server01   N/A     N/A      N/A          N/A  neverpoll      server01 1970-01-01 00:00:00+00:00
-6   servers  server02   N/A     N/A      N/A          N/A  neverpoll      server02 1970-01-01 00:00:00+00:00
-7   servers  server03   N/A     N/A      N/A          N/A  neverpoll      server03 1970-01-01 00:00:00+00:00
-...
-suzieq> exit
-```
-
-Once you finished exploring, you can exit the SuzieQ container. You can also end the clab as above.
 
 ## Containerlab Commands Summary
 
