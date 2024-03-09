@@ -4,15 +4,24 @@ This section demonstration of the use of SNMP tools to get information from the 
 
 Before you start, make sure that topology is deployed and SNMP is enabled on all routers before proceeding.
 
+```
+$ ./utils/enable_snmp.sh
+...
+$ ./utils/test_snmp.sh
+...
+```
+
+You should not get any errors after executing the above commands.
+
 Notes:
 
-- You can limit the topology to teh routers and the management workstation only:
+- You can limit the topology to the routers and the management workstation only:
 
    ```
    sudo clab deploy -t cvx-dcn.clab.yaml --node-filter spine01,spine02,leaf01,leaf02,leaf03,nms
    ```
 
-- All examples use 'spine01' as target but you can change the address to any other router.
+- All the examples use 'spine01' as target but you can change the address to any other router.
 
 
 The following commands can be executed after entering the 'nms' node or directly from Docker:

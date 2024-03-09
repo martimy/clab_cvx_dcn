@@ -12,6 +12,7 @@ topology:
         - config/leaf01/interfaces:/etc/network/interfaces
         - config/leaf01/daemons:/etc/frr/daemons
         - config/leaf01/frr.conf:/etc/frr/frr.conf
+        - config/leaf01/snmpd.conf.cumulus:/etc/snmp/snmpd.conf.cumulus
       mgmt-ipv4: 172.20.20.21
       group: leaf
 
@@ -23,6 +24,7 @@ topology:
         - config/leaf02/interfaces:/etc/network/interfaces
         - config/leaf02/daemons:/etc/frr/daemons
         - config/leaf02/frr.conf:/etc/frr/frr.conf
+        - config/leaf02/snmpd.conf.cumulus:/etc/snmp/snmpd.conf.cumulus
       mgmt-ipv4: 172.20.20.22
       group: leaf
 
@@ -34,6 +36,7 @@ topology:
         - config/leaf03/interfaces:/etc/network/interfaces
         - config/leaf03/daemons:/etc/frr/daemons
         - config/leaf03/frr.conf:/etc/frr/frr.conf
+        - config/leaf03/snmpd.conf.cumulus:/etc/snmp/snmpd.conf.cumulus
       mgmt-ipv4: 172.20.20.23
       group: leaf
 
@@ -45,8 +48,14 @@ topology:
         - config/spine01/interfaces:/etc/network/interfaces
         - config/spine01/daemons:/etc/frr/daemons
         - config/spine01/frr.conf:/etc/frr/frr.conf
+        - config/spine01/snmpd.conf.cumulus:/etc/snmp/snmpd.conf.cumulus
         - config/11-remotesyslog.conf:/etc/rsyslog.d/11-remotesyslog.conf
+        # To test sFlow
+        - config/hsflowd.conf:/etc/hsflowd.conf
       mgmt-ipv4: 172.20.20.11
+#      exec:
+#        - systemctl stop hsflowd.service
+#        - systemctl start hsflowd@mgmt.service
       group: spine
 
     spine02:
@@ -57,6 +66,7 @@ topology:
         - config/spine02/interfaces:/etc/network/interfaces
         - config/spine02/daemons:/etc/frr/daemons
         - config/spine02/frr.conf:/etc/frr/frr.conf
+        - config/spine02/snmpd.conf.cumulus:/etc/snmp/snmpd.conf.cumulus
       mgmt-ipv4: 172.20.20.12
       group: spine
 
@@ -112,6 +122,18 @@ topology:
       kind: linux
       image: nicolaka/netshoot
       mgmt-ipv4: 172.20.20.101
+      group: server
+
+    sflow:
+      kind: linux
+      image: sflow/sflowtrend
+      mgmt-ipv4: 172.20.20.102
+      publish:
+        - udp/6343
+        - tcp/8087
+        - tcp/8443
+      env:
+        TZ: America/Halifax
       group: server
 
   links:
