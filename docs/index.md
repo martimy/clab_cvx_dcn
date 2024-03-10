@@ -4,6 +4,7 @@ The documentation of this lab is divided into sections:
 ## Topology
 
 - [Topology Description](topology.md)
+- [Configuration](configs.md)
 
 ## Monitoring
 
