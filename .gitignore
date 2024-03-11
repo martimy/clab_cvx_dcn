@@ -1,4 +1,5 @@
 *.bak
+.bash_history
 suzieq/dbdir
 observium/data
 observium/logs

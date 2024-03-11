@@ -1,0 +1,84 @@
+---
+- name: Test playbook to update interface settings
+  hosts: spine
+  connection: ansible.netcommon.httpapi
+  gather_facts: false
+  
+  vars:
+    ansible_network_os: nvidia.nvue.httpapi
+    ansible_httpapi_port: 8765
+    ansible_httpapi_use_ssl: true
+    ansible_httpapi_validate_certs: false
+
+  tasks:
+    - name: Create new revision
+      nvidia.nvue.config:
+        state: new
+      register: revision
+
+    - name: Dump revision
+      ansible.builtin.debug:
+        msg: '{{ revision.revid }}'
+
+    - name: Set interface
+      nvidia.nvue.interface:
+        state: merged
+        revid: '{{ revision.revid }}'
+        data:
+          - id: eth0
+            ip:
+              address:
+                - id: '192.168.200.11/24'
+            type: 'eth'
+          - id: lo
+            ip:
+              address:
+                - id: '10.10.10.1/32'
+            type: 'loopback'
+          - id: 'swp51'
+            link:
+              state:
+                - id: 'up'
+            type: 'swp'
+          - id: 'swp52'
+            link:
+              state:
+                - id: 'up'
+            type: 'swp'
+          - id: 'swp53'
+            link:
+              state:
+                - id: 'up'
+            type: 'swp'
+          - id: 'swp54'
+            link:
+              state:
+                - id: 'up'
+            type: 'swp'
+      register: interface
+
+    - name: Dump previous output
+      ansible.builtin.debug:
+        msg: '{{ interface }}'
+
+    - name: Apply new revision
+      nvidia.nvue.config:
+        state: apply
+        revid: '{{ revision.revid }}'
+        force: true
+        wait: 10
+      register: revision
+
+    - name: Dump previous output
+      ansible.builtin.debug:
+        msg: '{{ revision }}'
+
+    - name: Fetch interface config
+      nvidia.nvue.interface:
+        state: gathered
+      register: interface
+
+    - name: Display interface config
+      ansible.builtin.debug:
+        msg: '{{ interface }}'
+

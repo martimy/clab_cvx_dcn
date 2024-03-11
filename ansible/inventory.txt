@@ -1,0 +1,20 @@
+[spine]
+spine01 ansible_host=172.20.20.11
+spine01 ansible_host=172.20.20.12
+
+[leaf]
+leaf01 ansible_host=172.20.20.21
+leaf02 ansible_host=172.20.20.22
+leaf03 ansible_host=172.20.20.23
+
+[cumulus:children]
+spine
+leaf
+
+[cumulus:vars]
+ansible_connection=network_cli
+ansible_network_os=frr.frr.frr
+ansible_python_interpreter=/usr/bin/python3
+ansible_user=cumulus
+ansible_ssh_pass=cumulus
+
