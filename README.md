@@ -50,6 +50,12 @@ git clone https://github.com/martimy/clab_cvx_dcn dcn
 cd dcn
 ```
 
+To use BGP Unnumbered configuration, checkout the 'unnumbered' branch:
+
+```
+git checkout unnumbered
+```
+
 ## Starting and ending the lab
 
 Use the following command to start the lab:
