@@ -14,13 +14,9 @@ iface mgmt
 
 auto swp11
 iface swp11
-  address 10.0.0.66
-  netmask 255.255.255.224
 
 auto swp12
 iface swp12
-  address 10.0.0.162
-  netmask 255.255.255.224
 
 auto bridge
 iface bridge

@@ -14,15 +14,10 @@ iface mgmt
 
 auto swp1
 iface swp1
-  address 10.0.0.33
-  netmask 255.255.255.224
 
 auto swp2
 iface swp2
-  address 10.0.0.65
-  netmask 255.255.255.224
 
 auto swp3
 iface swp3
-  address 10.0.0.97
-  netmask 255.255.255.224
+
