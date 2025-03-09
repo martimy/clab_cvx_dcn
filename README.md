@@ -114,18 +114,106 @@ sudo clab destroy -t cvx-dcn.clab.yaml --cleanup
    ```
    docker exec clab-cdc-leaf01 vtysh -c "show ip route bgp"
    ```
+    <details>
+    <summary>Expected Output</summary>
 
+    ```
+    IPv4 Unicast Summary:
+    BGP router identifier 10.255.255.1, local AS number 65199 vrf-id 0
+    BGP table version 3
+    RIB entries 5, using 1000 bytes of memory
+    Peers 3, using 68 KiB of memory
+    
+    Neighbor        V         AS   MsgRcvd   MsgSent   TblVer  InQ OutQ  Up/Down State/PfxRcd   PfxSnt
+    10.0.0.34       4      65101         6         6        0    0    0 00:00:41            1        3
+    10.0.0.66       4      65102         7         7        0    0    0 00:01:23            1        3
+    10.0.0.98       4      65103         7         7        0    0    0 00:01:28            1        3
+    
+    Total number of neighbors 3
+    ```
+    </details>
+    
    or using Cumulus commands:
 
    ```
    docker exec clab-cdc-spine01 net show bgp
    ```
 
+    <details>
+    <summary>Expected Output</summary>
+    
+    ```
+    show bgp ipv4 unicast summary
+    =============================
+    BGP router identifier 10.255.255.1, local AS number 65199 vrf-id 0
+    BGP table version 3
+    RIB entries 5, using 1000 bytes of memory
+    Peers 3, using 68 KiB of memory
+    
+    Neighbor        V         AS   MsgRcvd   MsgSent   TblVer  InQ OutQ  Up/Down State/PfxRcd   PfxSnt
+    10.0.0.34       4      65101         8         6        0    0    0 00:00:18            1        3
+    10.0.0.66       4      65102         7         6        0    0    0 00:00:29            1        3
+    10.0.0.98       4      65103         7         6        0    0    0 00:00:20            1        3
+    
+    Total number of neighbors 3
+    
+    
+    show bgp ipv6 unicast summary
+    =============================
+    % No BGP neighbors found
+    
+    
+    show bgp l2vpn evpn summary
+    ===========================
+    % No BGP neighbors found
+    ```
+    </details>
+
 4. Show all routes
 
    ```
    docker exec clab-cdc-spine01 net show route
    ```
+
+    <details>
+    <summary>Expected Output</summary>
+    
+    ```
+    show ip route
+    =============
+    Codes: K - kernel route, C - connected, S - static, R - RIP,
+           O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+           T - Table, v - VNC, V - VNC-Direct, A - Babel, D - SHARP,
+           F - PBR, f - OpenFabric, Z - FRR,
+           > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+           t - trapped, o - offload failure
+    O   10.0.0.32/27 [110/10] is directly connected, swp1, weight 1, 00:03:34
+    C>* 10.0.0.32/27 is directly connected, swp1, 00:04:38
+    O   10.0.0.64/27 [110/10] is directly connected, swp2, weight 1, 00:04:23
+    C>* 10.0.0.64/27 is directly connected, swp2, 00:04:38
+    O   10.0.0.96/27 [110/10] is directly connected, swp3, weight 1, 00:04:23
+    C>* 10.0.0.96/27 is directly connected, swp3, 00:04:38
+    B>* 10.0.10.0/24 [20/0] via 10.0.0.34, swp1, weight 1, 00:00:04
+    B>* 10.0.20.0/24 [20/0] via 10.0.0.66, swp2, weight 1, 00:00:00
+    B>* 10.0.30.0/24 [20/0] via 10.0.0.98, swp3, weight 1, 00:00:03
+    C>* 10.255.255.1/32 is directly connected, lo, 00:04:38
+    
+    
+    
+    show ipv6 route
+    ===============
+    Codes: K - kernel route, C - connected, S - static, R - RIPng,
+           O - OSPFv3, I - IS-IS, B - BGP, N - NHRP, T - Table,
+           v - VNC, V - VNC-Direct, A - Babel, D - SHARP, F - PBR,
+           f - OpenFabric, Z - FRR,
+           > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+           t - trapped, o - offload failure
+    C * fe80::/64 is directly connected, swp2, 00:04:39
+    C * fe80::/64 is directly connected, swp3, 00:04:39
+    C>* fe80::/64 is directly connected, swp1, 00:04:39
+    ```
+
+    </details>
 
 5. Ping from any one host to another to verify connectivity.
 
