@@ -24,17 +24,23 @@ Notes:
 - All the examples use 'spine01' as target but you can change the address to any other router.
 
 
-The following commands can be executed after entering the 'nms' node or directly from Docker:
+The following commands can be executed from the host machine:
+
+```
+$ snmpwalk -v 2c -c snmpcumulus 172.20.20.11 system
+```
+
+or from the 'nms' node (if snmp tools are not installed on the host machine):
+
+```
+$ docker exec clab-cdc-nms snmpwalk -v 2c -c snmpcumulus 172.20.20.11 system
+```
+
+You can also enter the 'nms/ node:
 
 ```
 docker exec -it clab-cdc-nms bash
 nms:~# snmpwalk -v 2c -c snmpcumulus 172.20.20.11 system
-```
-
-or
-
-```
-docker exec clab-cdc-nms snmpwalk -v 2c -c snmpcumulus 172.20.20.11 system
 ```
 
 ## getRequest
