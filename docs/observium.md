@@ -9,7 +9,7 @@ Change to the Observium directory and create three sub directories (you need to 
 
 ```
 ~/dcn$ cd observium
-~/dcn/observium$ mkdir {data,logs,rrd}
+~/dcn/observium$ mkdir {config,logs,rrd}
 ```
 
 Start Observium:
@@ -18,9 +18,15 @@ Start Observium:
 ~/dcn/observium$ docker compose up -d
 ```
 
-Open a browser and access Observium via (http://localhost:8888/). Use the username and password found in the `docker-compose.yaml` file. You may change them later.
+Wait a few minutes then open a browser and access Observium via (http://localhost:8888/). Use the username and password found in the `docker-compose.yaml` file. You may change them later. If you are still unable to log in, add a user manually:
 
-To add devices to Observium, used the following example:
+```
+docker exec -it observium /opt/observium/adduser.php <username> <password> 10
+```
+
+You can explore all Observium features from the GUI. You can also execute some functions from the command line.
+
+To add devices to Observium from the command line, use the following example:
 
 ```
 docker compose exec app /opt/observium/add_device.php 172.20.20.11 snmpcumulus v2c
