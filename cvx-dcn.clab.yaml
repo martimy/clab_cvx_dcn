@@ -125,10 +125,10 @@ topology:
       kind: linux
       image: sflow/sflowtrend
       mgmt-ipv4: 172.20.20.102
-      publish:
-        - udp/6343
-        - tcp/8087
-        - tcp/8443
+      ports:
+        - 6343:6343/udp
+        - 8087:8087/tcp
+        - 8443:8443/tcp
       env:
         TZ: America/Halifax
       group: server
