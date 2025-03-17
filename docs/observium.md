@@ -29,14 +29,14 @@ You can explore all Observium features from the GUI. You can also execute some f
 To add devices to Observium from the command line, use the following example:
 
 ```
-docker compose exec app /opt/observium/add_device.php 172.20.20.11 snmpcumulus v2c
+docker compose exec observium /opt/observium/add_device.php 172.20.20.11 snmpcumulus v2c
 ```
 
 Run the discovery and polling scripts for the first time:
 
 ```
-docker compose exec app /opt/observium/discovery.php -h all
-docker compose exec app /opt/observium/poller.php -h all
+docker compose exec observium /opt/observium/discovery.php -h all
+docker compose exec observium /opt/observium/poller.php -h all
 ```
 
 Note: discovery and polling will occur periodically.
