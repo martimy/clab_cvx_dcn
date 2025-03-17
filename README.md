@@ -80,6 +80,9 @@ clab destroy -t cvx-dcn.clab.yaml --cleanup
 
     The output should confirm all nodes are running.
 
+    <details>
+    <summary>Expected Output</summary>
+
     ```
     ╭───────────────────┬───────────────────────┬─────────┬───────────────────╮
     │        Name       │       Kind/Image      │  State  │   IPv4/6 Address  │
@@ -124,7 +127,7 @@ clab destroy -t cvx-dcn.clab.yaml --cleanup
     │                   │ networkop/cx:5.3.0    │         │ 3fff:172:20:20::e │
     ╰───────────────────┴───────────────────────┴─────────┴───────────────────╯
     ```
-
+    </details>
 
 2. Confirm that BGP sessions are established among all peers.
 
