@@ -28,7 +28,7 @@ Environment:
 
 - Ubuntu 20.04
 - Docker v25.03. Follow these [instructions](https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script) to install.
-- Containerlab v0.51.3. Follow these [instructions](https://containerlab.dev/install/) to install.
+- Containerlab v0.66.0. Follow these [instructions](https://containerlab.dev/install/) to install.
 
 This lab uses the following Docker images:
 
@@ -61,13 +61,13 @@ git checkout unnumbered
 Use the following command to start the lab:
 
 ```
-sudo clab deploy -t cvx-dcn.clab.yaml
+clab deploy -t cvx-dcn.clab.yaml
 ```
 
 To end the lab:
 
 ```
-sudo clab destroy -t cvx-dcn.clab.yaml --cleanup
+clab destroy -t cvx-dcn.clab.yaml --cleanup
 ```
 
 ## Basic Usage
@@ -75,23 +75,54 @@ sudo clab destroy -t cvx-dcn.clab.yaml --cleanup
 1. inspect the status of all nodes in the network
 
     ```
-    sudo clab inspect
+    clab inspect
     ```
+
     The output should confirm all nodes are running.
 
     ```
-    +---+-------------------+--------------+-------------------------+-------+---------+-----------------+----------------------+
-    | # |       Name        | Container ID |          Image          | Kind  |  State  |  IPv4 Address   |     IPv6 Address     |
-    +---+-------------------+--------------+-------------------------+-------+---------+-----------------+----------------------+
-    | 1 | clab-cdc-leaf01   | ffe6d19c69c5 | networkop/cx:5.3.0      | cvx   | running | 172.20.20.21/24 | 2001:172:20:20::6/64 |
-    | 2 | clab-cdc-leaf02   | c74c4810ffd6 | networkop/cx:5.3.0      | cvx   | running | 172.20.20.22/24 | 2001:172:20:20::9/64 |
-    | 3 | clab-cdc-leaf03   | c419656cba38 | networkop/cx:5.3.0      | cvx   | running | 172.20.20.23/24 | 2001:172:20:20::8/64 |
-    | 4 | clab-cdc-server01 | b2834936ce57 | networkop/host:ifreload | linux | running | 172.20.20.31/24 | 2001:172:20:20::3/64 |
-    | 5 | clab-cdc-server02 | 1ccfab86334a | networkop/host:ifreload | linux | running | 172.20.20.32/24 | 2001:172:20:20::2/64 |
-    | 6 | clab-cdc-server03 | bd32bbb98b98 | networkop/host:ifreload | linux | running | 172.20.20.33/24 | 2001:172:20:20::5/64 |
-    | 7 | clab-cdc-spine01  | d680bac1c120 | networkop/cx:5.3.0      | cvx   | running | 172.20.20.11/24 | 2001:172:20:20::4/64 |
-    | 8 | clab-cdc-spine02  | dc897b260ee0 | networkop/cx:5.3.0      | cvx   | running | 172.20.20.12/24 | 2001:172:20:20::7/64 |
-    +---+-------------------+--------------+-------------------------+-------+---------+-----------------+----------------------+
+    ╭───────────────────┬───────────────────────┬─────────┬───────────────────╮
+    │        Name       │       Kind/Image      │  State  │   IPv4/6 Address  │
+    ├───────────────────┼───────────────────────┼─────────┼───────────────────┤
+    │ clab-cdc-leaf01   │ cvx                   │ running │ 172.20.20.21      │
+    │                   │ networkop/cx:5.3.0    │         │ 3fff:172:20:20::c │
+    ├───────────────────┼───────────────────────┼─────────┼───────────────────┤
+    │ clab-cdc-leaf02   │ cvx                   │ running │ 172.20.20.22      │
+    │                   │ networkop/cx:5.3.0    │         │ 3fff:172:20:20::a │
+    ├───────────────────┼───────────────────────┼─────────┼───────────────────┤
+    │ clab-cdc-leaf03   │ cvx                   │ running │ 172.20.20.23      │
+    │                   │ networkop/cx:5.3.0    │         │ 3fff:172:20:20::7 │
+    ├───────────────────┼───────────────────────┼─────────┼───────────────────┤
+    │ clab-cdc-nms      │ linux                 │ running │ 172.20.20.101     │
+    │                   │ nicolaka/netshoot     │         │ 3fff:172:20:20::6 │
+    ├───────────────────┼───────────────────────┼─────────┼───────────────────┤
+    │ clab-cdc-server01 │ linux                 │ running │ 172.20.20.31      │
+    │                   │ akpinar/alpine:latest │         │ 3fff:172:20:20::b │
+    ├───────────────────┼───────────────────────┼─────────┼───────────────────┤
+    │ clab-cdc-server02 │ linux                 │ running │ 172.20.20.32      │
+    │                   │ akpinar/alpine:latest │         │ 3fff:172:20:20::8 │
+    ├───────────────────┼───────────────────────┼─────────┼───────────────────┤
+    │ clab-cdc-server03 │ linux                 │ running │ 172.20.20.33      │
+    │                   │ akpinar/alpine:latest │         │ 3fff:172:20:20::d │
+    ├───────────────────┼───────────────────────┼─────────┼───────────────────┤
+    │ clab-cdc-server04 │ linux                 │ running │ 172.20.20.34      │
+    │                   │ akpinar/alpine:latest │         │ 3fff:172:20:20::2 │
+    ├───────────────────┼───────────────────────┼─────────┼───────────────────┤
+    │ clab-cdc-server05 │ linux                 │ running │ 172.20.20.35      │
+    │                   │ akpinar/alpine:latest │         │ 3fff:172:20:20::5 │
+    ├───────────────────┼───────────────────────┼─────────┼───────────────────┤
+    │ clab-cdc-server06 │ linux                 │ running │ 172.20.20.36      │
+    │                   │ akpinar/alpine:latest │         │ 3fff:172:20:20::3 │
+    ├───────────────────┼───────────────────────┼─────────┼───────────────────┤
+    │ clab-cdc-sflow    │ linux                 │ running │ 172.20.20.102     │
+    │                   │ sflow/sflowtrend      │         │ 3fff:172:20:20::9 │
+    ├───────────────────┼───────────────────────┼─────────┼───────────────────┤
+    │ clab-cdc-spine01  │ cvx                   │ running │ 172.20.20.11      │
+    │                   │ networkop/cx:5.3.0    │         │ 3fff:172:20:20::4 │
+    ├───────────────────┼───────────────────────┼─────────┼───────────────────┤
+    │ clab-cdc-spine02  │ cvx                   │ running │ 172.20.20.12      │
+    │                   │ networkop/cx:5.3.0    │         │ 3fff:172:20:20::e │
+    ╰───────────────────┴───────────────────────┴─────────┴───────────────────╯
     ```
 
 
