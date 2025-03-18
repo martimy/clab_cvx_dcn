@@ -18,6 +18,8 @@ topology:
         - config/leaf01/daemons:/etc/frr/daemons
         - config/leaf01/frr.conf:/etc/frr/frr.conf
         - config/leaf01/snmpd.conf.cumulus:/etc/snmp/snmpd.conf.cumulus
+        - config/lldp:/etc/default/lldp
+        - config/lldp.conf:/etc/lldpd.d/lldp.conf
       mgmt-ipv4: 172.20.20.21
       group: leaf
 
@@ -28,6 +30,8 @@ topology:
         - config/leaf02/daemons:/etc/frr/daemons
         - config/leaf02/frr.conf:/etc/frr/frr.conf
         - config/leaf02/snmpd.conf.cumulus:/etc/snmp/snmpd.conf.cumulus
+        - config/lldp:/etc/default/lldp
+        - config/lldp.conf:/etc/lldpd.d/lldp.conf
       mgmt-ipv4: 172.20.20.22
       group: leaf
 
@@ -38,6 +42,8 @@ topology:
         - config/leaf03/daemons:/etc/frr/daemons
         - config/leaf03/frr.conf:/etc/frr/frr.conf
         - config/leaf03/snmpd.conf.cumulus:/etc/snmp/snmpd.conf.cumulus
+        - config/lldp:/etc/default/lldp
+        - config/lldp.conf:/etc/lldpd.d/lldp.conf
       mgmt-ipv4: 172.20.20.23
       group: leaf
 
@@ -48,6 +54,8 @@ topology:
         - config/spine01/daemons:/etc/frr/daemons
         - config/spine01/frr.conf:/etc/frr/frr.conf
         - config/spine01/snmpd.conf.cumulus:/etc/snmp/snmpd.conf.cumulus
+        - config/lldp:/etc/default/lldp
+        - config/lldp.conf:/etc/lldpd.d/lldp.conf
         - config/11-remotesyslog.conf:/etc/rsyslog.d/11-remotesyslog.conf
         # To test sFlow
         - config/hsflowd.conf:/etc/hsflowd.conf
@@ -64,6 +72,8 @@ topology:
         - config/spine02/daemons:/etc/frr/daemons
         - config/spine02/frr.conf:/etc/frr/frr.conf
         - config/spine02/snmpd.conf.cumulus:/etc/snmp/snmpd.conf.cumulus
+        - config/lldp:/etc/default/lldp
+        - config/lldp.conf:/etc/lldpd.d/lldp.conf
       mgmt-ipv4: 172.20.20.12
       group: spine
 
