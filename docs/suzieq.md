@@ -16,7 +16,7 @@ suzieq$ ./start.sh
 Start the Poller to collect information about the devices in the network:
 
 ```
-suzieq@b7c0b9263b48:~$ sq-poller -I inventory.yaml -c my-config.yaml &
+suzieq@b7c0b9263b48:~$ sq-poller -I inventory.yml -c my-config.yml &
 ```
 
 Then and start the GUI:
